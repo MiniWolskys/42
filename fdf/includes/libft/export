@@ -119,7 +119,7 @@ char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 char				*ft_strdelchar(char const *str, char c);
 
-int					**ft_aatoai(char **src, int line_nb);
+int					**ft_aatoai(char **src, t_pos *size);
 
 char				**ft_split_line(char *src, char c);
 char				**ft_get_file(int fd, t_pos **size);

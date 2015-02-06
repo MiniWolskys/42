@@ -18,7 +18,8 @@ static char		*process(char const *s1, char c, size_t *index_start)
 	size_t		index;
 
 	index = 0;
-	index++;
+	if (s1[*index_start] == '\n')
+		index++;
 	if (!(s1[index + (*index_start)]))
 		return (NULL);
 	*index_start += index;

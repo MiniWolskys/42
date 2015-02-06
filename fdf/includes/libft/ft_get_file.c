@@ -15,29 +15,25 @@
 static t_pos	*get_size(char *result, t_pos *size)
 {
 	int		i;
-	int		cnt;
 	int		cur_size;
-	int		max_size;
 
-	i = -1;
-	cnt = 1;
-	max_size = 0;
-	cur_size = 0;
 	if (!(size = (t_pos *)ft_memalloc(sizeof(*size))))
 		return (NULL);
-	while (result[++i])
+	i = 0;
+	size->y = 0;
+	size->x = 0;
+	cur_size = 0;
+	while (result[i])
 	{
 		if (result[i] == '\n')
 		{
-			if (result[i + 1] != '\n')
-				cnt++;
-			max_size = (max_size > cur_size) ? max_size : cur_size;
+			(size->y)++;
+			size->x = (size->x > cur_size) ? size->x : cur_size;
 			cur_size = -1;
 		}
 		cur_size++;
+		i++;
 	}
-	size->x = max_size;
-	size->y = cnt;
 	return (size);
 }
 
@@ -55,11 +51,9 @@ char			**ft_get_file(int fd, t_pos **size)
 		return (NULL);
 	while (out == BUFF_SIZE)
 	{
-		if (!(str = ft_strnew(BUFF_SIZE)))
-			return (NULL);
-		if ((out = read(fd, str, BUFF_SIZE)) == -1)
-			return (NULL);
-		if (!(result = ft_strjoin(result, str)))
+		if (!(str = ft_strnew(BUFF_SIZE)) ||
+			((out = read(fd, str, BUFF_SIZE)) == -1) ||
+			(!(result = ft_strjoin(result, str))))
 			return (NULL);
 		free(str);
 	}

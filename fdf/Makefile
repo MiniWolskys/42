@@ -12,9 +12,10 @@
 
 NAME = fdf
 
-SRCS = srcs/main.c srcs/get_pos.c srcs/draw_line.c srcs/print_map.c \
+SRCS = srcs/main.c srcs/get_pos.c srcs/draw_line.c srcs/read_map.c \
+		srcs/get_event.c srcs/get_map.c srcs/mlx_init.c \
 
-OBJ = main.o get_pos.o draw_line.o print_map.o \
+OBJ = main.o get_pos.o draw_line.o read_map.o get_event.o get_map.o mlx_init.o \
 
 GCC = gcc -Wall -Werror -Wextra -o $(NAME) -I includes/ \
 	  $(SRCS) -Lincludes/libft/ -lft -L/usr/X11/lib -lX11 -lXext -lmlx

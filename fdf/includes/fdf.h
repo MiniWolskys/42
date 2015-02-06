@@ -14,6 +14,8 @@
 
 # define FDF_H
 
+# define ABS(x) ((x) < 0 ? (-x) : (x))
+
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -22,21 +24,40 @@
 # include <mlx.h>
 # include "libft/libft.h"
 
-
 typedef struct s_mlx	t_mlx;
-typedef struct s_pos	t_pos;
-typedef struct s_line	t_line;
+typedef struct s_img	t_img;
+typedef struct s_vec	t_vec;
+
+struct					s_vec
+{
+	double				x;
+	double				y;
+};
+
+struct					s_img
+{
+	void				*img_ptr;
+	char				*data;
+	int					size_line;
+	int					endian;
+	int					bpp;
+	int					zoom;
+	unsigned int		color;
+};
 
 struct					s_mlx
 {
-	void				*mlx;
-	void				*win;
+	t_img				*struct_img;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_pos				*img_pos_win;
 };
 
-int						print_map(int **map, t_mlx e);
-void					get_pos(int x, int y, int z, t_pos **value);
-int						draw_line_top(t_pos pos, int **map,
-							t_pos *curr, t_mlx e);
-int						draw_line_prev(t_pos *curr, t_pos *prev, t_mlx e);
+int						**get_map(char *file, t_pos **size);
+int						init_mlx_struct(t_mlx **mlx_struct);
+int						read_map(t_mlx **mlx_struct, int **map, t_pos *size);
+int						get_event(t_mlx *mlx_struct/*, int **map, t_pos *size*/);
+void					get_pos(t_pos **value, int **map, t_pos pos, t_img **img);
+void					draw_line(t_pos *pos1, t_pos *pos2, t_img **img);
 
 #endif
