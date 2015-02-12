@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -12,40 +12,57 @@
 
 #include "push_swap.h"
 
-static t_struct		*get_first_pile(char **tab)
+static int			get_value(char *str)
 {
-	t_struct		*lst;
-	t_struct		*tmp;
-	int				i;
-	int				j;
-	int				pos;
+	int		j;
 
-	i = -1;
-	pos = 1;
-	if (!(lst = (t_struct *)ft_memalloc(sizeof(*lst))))
-		return (NULL);
-	tmp = lst;
-	while (tab[++i])
-	{
-		tmp = tmp->next;
-		j = -1;
-		while (tab[i][++j])
-			if (j != '+' && j != '-' && (j < '0' || j > '9'))
-				return (NULL);
-		tmp->value = ft_atoi(tab[i]);
-		tmp->pos = pos;
-		if (!(tmp->next = (t_struct *)ft_memalloc(sizeof(*lst))))
-			return (NULL);
-		pos++;
-	}
-	free(tmp->next);
-	tmp->next = NULL;
-	tmp = lst->next;
-	free(lst);
-	return (tmp);
+	j = 0;
+	if (str[j] == '+' || str[j] == '-')
+		j++;
+	while (str[j] <= '9' && str[j] >= '0')
+		j++;
+	if (str[j])
+		return (ERROR);
+	return (ft_atoi(str));
 }
 
-//	get_first_pile a refaire
+static int			get_size(char **tab)
+{
+	int			result;
+
+	result = 0;
+	while (tab[result])
+		result++;
+	return (result);
+}
+
+static t_struct		*get_first_pile(char **tab)
+{
+	t_struct		*a;
+	t_struct		*final;
+	int				i;
+	int				pos;
+
+	i = 0;
+	pos = get_size(tab);
+	if (!(a = ((t_struct *)ft_memalloc(sizeof(*a)))))
+		return (NULL);
+	final = a;
+	while (tab[++i])
+	{
+		if (!(final->next = (t_struct *)ft_memalloc(sizeof(*final))))
+			return (NULL);
+		final = final->next;
+		if (!(final->value = get_value(tab[i])) == ERROR)
+			return (NULL);
+		final->pos = pos;
+		final->next = NULL;
+		pos--;
+	}
+	final = a->next;
+	free(a);
+	return (final);
+}
 
 int					main(int ac, char **av)
 {
@@ -56,15 +73,21 @@ int					main(int ac, char **av)
 	{
 		b = NULL;
 		if (!(a = get_first_pile(av)))
+		{
+			ft_putstr("\n");
 			return (0);
+		}
 		while (a->next)
 			push_swap(&a, &b);
 		while (b)
 		{
 			push_a(&a, &b);
-			b = b->next;
+			if (b)
+				ft_putchar(' ');
 		}
+		ft_putstr("\b\n");
 	}
-	ft_putchar('\n');
+	else
+		ft_putchar('\n');
 	return (1);
 }

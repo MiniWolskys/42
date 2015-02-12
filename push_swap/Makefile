@@ -12,10 +12,9 @@
 
 NAME = push_swap
 
-SRCS = srcs/main.c srcs/push_swap.c srcs/push.c srcs/swap.c \
-		srcs/rota.c \
+SRCS = srcs/main.c srcs/push_swap.c srcs/push.c srcs/swap.c srcs/rota.c \
 
-OBJ = main.o rota.o push.o swap.o push_swap.o \
+OBJ = main.o push_swap.o push.o rota.o swap.o \
 
 GCC = gcc -Wall -Werror -Wextra -o $(NAME) -I includes/ \
 	  $(SRCS) -Llibft/ -lft

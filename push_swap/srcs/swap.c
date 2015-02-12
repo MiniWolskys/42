@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: srison <srison@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/05 17:59:36 by srison            #+#    #+#             */
-/*   Updated: 2015/02/05 17:59:37 by srison           ###   ########.fr       */
+/*   Created: 2015/02/09 22:05:14 by srison            #+#    #+#             */
+/*   Updated: 2015/02/09 22:05:15 by srison           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 static void		swap(t_struct **lst)
 {
-	int		tmp;
+	t_struct		*tmp;
+	int				value;
 
-	tmp = (*lst)->next->value;
-	(*lst)->next->value = (*lst)->value;
-	(*lst)->value = tmp;
+	tmp = *lst;
+	while (tmp && tmp->next && tmp->next->next)
+		tmp = tmp->next;
+	if (!tmp || !tmp->next)
+		return ;
+	value = tmp->next->value;
+	tmp->next->value = tmp->value;
+	tmp->value = value;
 }
 
-void			swap_a(t_struct **a)
+void			swap_a(t_struct **lst)
 {
-	swap(a);
-	ft_putstr("sa");
+	swap(lst);
+	ft_putstr("sa ");
 }

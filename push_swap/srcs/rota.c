@@ -5,35 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: srison <srison@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/05 17:59:29 by srison            #+#    #+#             */
-/*   Updated: 2015/02/05 17:59:30 by srison           ###   ########.fr       */
+/*   Created: 2015/02/09 23:04:31 by srison            #+#    #+#             */
+/*   Updated: 2015/02/09 23:04:32 by srison           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void		rota(t_struct **lst)
+static void			rota(t_struct **lst)
 {
 	t_struct		*tmp;
-	t_struct		*temp;
-	int				i;
+	t_struct		*mem;
+	int				prev_value;
+	int				swap;
 
-	tmp = (*lst)->next;
-	i = 1;
-	temp = *lst;
-	while (tmp->next)
+	tmp = *lst;
+	if (!tmp)
+		return ;
+	mem = tmp;
+	while (mem->next)
+		mem = mem->next;
+	prev_value = tmp->value;
+	tmp->value = mem->value;
+	while (tmp)
 	{
-		tmp->pos = i;
-		i++;
+		swap = tmp->value;
+		tmp->value = prev_value;
+		prev_value = swap;
 		tmp = tmp->next;
 	}
-	lst = &(temp->next);
-	tmp->next = temp;
-	temp->next = NULL;
 }
 
-void			rota_a(t_struct **a)
+void				rota_a(t_struct **lst)
 {
-	rota(a);
-	ft_putstr("ra");
+	rota(lst);
+	ft_putstr("ra ");
 }

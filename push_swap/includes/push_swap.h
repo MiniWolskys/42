@@ -14,6 +14,8 @@
 
 # define PUSH_SWAP_H
 
+# define ERROR -35431354
+
 # include "../libft/libft.h"
 
 typedef struct s_struct		t_struct;
