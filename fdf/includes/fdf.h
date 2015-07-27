@@ -14,50 +14,39 @@
 
 # define FDF_H
 
-# define ABS(x) ((x) < 0 ? (-x) : (x))
+# define ABS(x) (x > 0) ? x : -x
+# define MLX_HEIGHT 1000
+# define MLX_WIDTH 1000
 
-# include <string.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <mlx.h>
-# include "libft/libft.h"
-
-typedef struct s_mlx	t_mlx;
-typedef struct s_img	t_img;
-typedef struct s_vec	t_vec;
-
-struct					s_vec
+typedef struct		s_vec
 {
-	double				x;
-	double				y;
-};
+	double			x;
+	double			y;
+	int				iter;
+}					t_vec;
 
-struct					s_img
+typedef struct		s_mlx
 {
-	void				*img_ptr;
-	char				*data;
-	int					size_line;
-	int					endian;
-	int					bpp;
-	int					zoom;
-	unsigned int		color;
-};
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*data;
+	int				**map;
+	double			zoom;
+	double			cste;
+	int				size_x;
+	int				size_y;
+	int				endian;
+	int				pos_x;
+	int				pos_y;
+	int				bpp;
+	int				sl;
+	int				w;
+	int				h;
+}					t_mlx;
 
-struct					s_mlx
-{
-	t_img				*struct_img;
-	void				*mlx_ptr;
-	void				*win_ptr;
-	t_pos				*img_pos_win;
-};
-
-int						**get_map(char *file, t_pos **size);
-int						init_mlx_struct(t_mlx **mlx_struct);
-int						read_map(t_mlx **mlx_struct, int **map, t_pos *size);
-int						get_event(t_mlx *mlx_struct/*, int **map, t_pos *size*/);
-void					get_pos(t_pos **value, int **map, t_pos pos, t_img **img);
-void					draw_line(t_pos *pos1, t_pos *pos2, t_img **img);
+int					check_file(char **file);
+int					use_mlx(t_mlx *mlx);
+void				draw_calc(int **map, t_mlx *mlx);
 
 #endif

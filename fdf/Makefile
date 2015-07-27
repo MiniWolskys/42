@@ -12,26 +12,33 @@
 
 NAME = fdf
 
-SRCS = srcs/main.c srcs/get_pos.c srcs/draw_line.c srcs/read_map.c \
-		srcs/get_event.c srcs/get_map.c srcs/mlx_init.c \
+SRCS = srcs/main.c
+SRCS += srcs/check_file.c
+SRCS += srcs/mlx.c
+SRCS += srcs/draw_calc.c
 
-OBJ = main.o get_pos.o draw_line.o read_map.o get_event.o get_map.o mlx_init.o \
+OBJ = $(SRCS:.c=.o)
 
-GCC = gcc -Wall -Werror -Wextra -o $(NAME) -I includes/ \
-	  $(SRCS) -Lincludes/libft/ -lft -L/usr/X11/lib -lX11 -lXext -lmlx
+HEADER = -Iincludes/ -Iincludes/libft/ -I./includes/minilibx_macos/
+
+LIB = -L./includes/minilibx_macos/ -lmlx -framework OpenGL -framework AppKit \
+	-Lincludes/libft/ -lft \
+
+GCC = gcc -Wall -Werror -Wextra -o $(NAME) $(HEADER) $(SRCS) $(LIB) \
 
 all: $(NAME)
 
 $(NAME): 
-	make -C includes/libft/ re
-	make -C includes/libft/ clean
-	$(GCC)
-	
-clean :
-	rm -rf $(OBJ)
+	@make -C ./includes/minilibx_macos/
+	@make -C ./includes/libft/ re
+	@make -C ./includes/libft/ clean
+	@$(GCC)
+
+clean:
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm $(NAME)
+	@rm $(NAME)
 
 re: fclean all
 

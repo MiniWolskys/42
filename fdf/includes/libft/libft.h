@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 # define OPT_USAGE "none"
-# define BUFF_SIZE 32
+# define BUFF_SIZE 1024
 # define END_LINE 483164
 
 typedef struct		s_list
@@ -119,10 +119,10 @@ char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 char				*ft_strdelchar(char const *str, char c);
 
-int					**ft_aatoai(char **src, t_pos *size);
+int					**ft_aatoai(char **src);
 
 char				**ft_split_line(char *src, char c);
-char				**ft_get_file(int fd, t_pos **size);
+char				**ft_get_file(int fd);
 char				**ft_strsplit(char const *s1, char c);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);

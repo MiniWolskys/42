@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_set_color(t_rgb *rgb)
+int			ft_set_color(t_rgb *rgb)
 {
 	return (*((int *)rgb));
 }

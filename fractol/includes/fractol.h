@@ -12,28 +12,50 @@
 
 #ifndef FRACTOL_H
 
-#define FRACTOL_H
+# define FRACTOL_H
 
-# include <mlx.h>
-# include <unistd.h>
-# include "libft.h"
+# define WIN_HEIGHT 1000
+# define WIN_WIDTH 1000
+# define MAX 40
 
 typedef struct s_mlx	t_mlx;
+typedef struct s_vec	t_vec;
+
+struct					s_vec
+{
+	double				x;
+	double				y;
+};
 
 struct					s_mlx
 {
 	void				*mlx;
-	void				**win;
+	void				*win;
+	void				*img;
+	char				*data;
+	double				zoom;
+	int					**map;
+	int					fractal;
+	int					iter;
+	int					bpp;
+	int					set;
+	int					sl;
+	int					y;
+	int					x;
+	int					w;
+	int					h;
 };
-
-typedef struct			s_pos
-{
-	double				x;
-	double				y;
-}						t_pos;
 
 int						set_color(unsigned char red, unsigned char green,
 						unsigned char blue);
-
+void					img_pixel_put(t_mlx *mlx, int x, int y, int color);
+void					get_event(t_mlx *mlx);
+void					draw_mandel(t_mlx *mlx);
+void					draw_julia(t_mlx *mlx);
+void					draw_ship(t_mlx *mlx);
+void					reset_image(t_mlx *mlx);
+void					redraw_mlx(t_mlx *mlx);
+int						mouse_hook(int buttonpress, int x, int y, t_mlx *mlx);
+// int					mouse_move(int x, int y, t_mlx *mlx);
 
 #endif

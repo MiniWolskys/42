@@ -6,15 +6,18 @@
 #    By: srison <srison@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/08 18:40:36 by srison            #+#    #+#              #
-#    Updated: 2014/12/02 17:58:36 by srison           ###   ########.fr        #
+#    Updated: 2015/03/19 10:19:40 by srison           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_sh1 
+NAME = ft_minishell1
 
-SRCS = srcs/main.c \
+SRCS = srcs/main.c srcs/get_env.c srcs/get_next_line.c srcs/exec_command.c \
+	srcs/free.c srcs/execbuilt.c srcs/ft_cd.c srcs/signal_handler.c \
+	srcs/exec_slash.c \
 
-OBJ = main.o \
+OBJ = main.o get_env.o get_next_line.o exec_command.o free.o execbuilt.o \
+	ft_cd.o signal_handler.o exec_slash.o \
 
 GCC = gcc -Wall -Werror -Wextra -o $(NAME) -I includes/ \
 	  $(SRCS) -Lincludes/libft/ -lft

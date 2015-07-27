@@ -12,12 +12,19 @@
 
 #include "libmlx.h"
 
-t_img		*init_img(size_t height, size_t width)
+t_img		*init_img(t_mlx *mlx, size_t height, size_t width)
 {
 	t_img		*img;
 
 	if (!(img = (t_img *)ft_memalloc(sizeof(*img))))
-		return (NULL)
+		return (NULL);
+	if (!(img->img_ptr = mlx_new_image(mlx->mlx_ptr, width, height)))
+		return (NULL);
+	img->img_height = height;
+	img->img_wdith = width;
+	if (!(img->data = get_data_addr(img->img_ptr, &width, &width, &width)))
+		return (NULL);
+	return (img);
 }
 
 t_mlx		*init_mlx(size_t height, size_t width, char *name, int image)
@@ -36,14 +43,12 @@ t_mlx		*init_mlx(size_t height, size_t width, char *name, int image)
 		free(mlx);
 		return (NULL);
 	}
-	if (!image)
-		mlx->img_struct = NULL;
-	else
-		if (!(mlx->img_struct = init_img(height, width)))
-		{
-			free(mlx);
-			return (NULL);
-		}
+	mlx->img_struct = (image) ? init_img(mlx, height, width) : NULL;
+	if (image && !(mlx->img_struct))
+	{
+		free(mlx);
+		return (NULL);
+	}
 	mlx->win_height = height;
 	mlx->win_width = width;
 	mlx->pos_height = 0;

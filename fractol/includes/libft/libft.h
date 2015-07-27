@@ -16,8 +16,11 @@
 
 # include <string.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 # define OPT_USAGE "none"
+# define BUFF_SIZE 1024
+# define END_LINE 483164
 
 typedef struct		s_list
 {
@@ -33,6 +36,12 @@ typedef struct		s_rgb
 	char			red;
 	char			useless;
 }					t_rgb;
+
+typedef struct		s_pos
+{
+	int				x;
+	int				y;
+}					t_pos;
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
@@ -54,6 +63,10 @@ void				ft_bzero(void *s, size_t n);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_strswap(char **s1, char **s2);
 void				ft_swap(void **ptr1, void **ptr2);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstiter(t_list *lst, void (*f)(t_list*elem));
+void				ft_lstadd(t_list **alst, t_list *new);
 
 void				*ft_put_error(void *program_name, void *ptr, int error);
 void				*ft_memalloc(size_t size);
@@ -106,8 +119,13 @@ char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 char				*ft_strdelchar(char const *str, char c);
 
+int					**ft_aatoai(char **src);
+
+char				**ft_split_line(char *src, char c);
+char				**ft_get_file(int fd);
 char				**ft_strsplit(char const *s1, char c);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 #endif

@@ -17,10 +17,17 @@ t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
 	t_list	*list;
 
-	if (!(list = ft_memalloc(sizeof(*list))))
+	list = ft_lstnew(NULL, 0);
+	if (!(list))
 		return (NULL);
-	list = f(lst);
-	if (lst->next)
-		list->next = ft_lstmap(lst->next, f);
+	while (lst)
+	{
+		list->next = (t_list *)malloc(sizeof(*list));
+		list->next = f(lst);
+		if (!(lst->next))
+			break ;
+		list = list->next;
+		lst = lst->next;
+	}
 	return (list);
 }

@@ -10,74 +10,74 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "fractol.h"
+#include "libft.h"
+#include "mlx.h"
 
-static void	put_parameters_error()
+static int		init_mlx(t_mlx *mlx)
 {
-	ft_putendl("Error : Not enough arguments.");
-	ft_putendl("Usage :");
-	ft_putendl("./fractol [fractal1 type, datas] [fractal2 type, datas]...");
-	return (1);
-}
-
-static int	get_printable(t_mlx *e, char *datas, void *fct_ptr)
-{
-	char	*name;
-	char	*data;
-	int		i;
-
-	if (!(name = ft_strshr(datas, ',')))
-			return (0);
-	if ((data = ft_strchr(data, ',')))
-		if (!(data = ft_strdup(data)))
-			return (0);
-	if (!(ft_strcmp(name, "Julia")))
-		i = 1;
-	else if (!(ft_strcmp(name, "Mandelbrot")))
-		i = 0;
-	else if (!(ft_strcmp(name, "Coquillageant")))
-		i = 2;
-	else
+	if (!(mlx->mlx = mlx_init()))
 		return (0);
-	if (!(e->win = (void **)ft_realloc(sizeof(e->win) + sizeof(void *))))
+	mlx->h = WIN_HEIGHT;
+	mlx->w = WIN_WIDTH;
+	if (!(mlx->img = mlx_new_image(mlx->mlx, mlx->w, mlx->h)))
 		return (0);
-	e->win[sizeof(e->win) - sizeof(void *)] = (fct_ptr[i])(e->mlx, data);
-	return (1);
-}
-
-static void	*set_array_fct(void *(*fct_ptr)(void *mlx, char *data))
-{
-	if (!(fct_ptr = ft_memalloc(sizeof(*fct_ptr) * 4)))
-		return (NULL);
-	fct_ptr[0] = &draw_mandelbrot;
-	fct_ptr[1] = &draw_julia;
-	fct_ptr[2] = &draw_coquillageant;
-	return (fct_ptr);
-}
-
-int			main(int ac, char **av)
-{
-	int		i;
-	t_mlx	*e;
-	void	*(*fct_ptr)(void *mlx, char *data);
-
-	if (ac < 2)
-		return (put_parameters_error());
-	if (!(fct_ptr = set_array_fct(fct_ptr)))
-		return (1);
-	if (!(e = (t_mlx *)ft_memalloc(sizeof(*e))))
-		return (1);
-	e->mlx = mlx_init;
-	e->win = NULL;
-	i = 0;
-	while (++i < ac)
+	if (!(mlx->data = mlx_get_data_addr(mlx->img, &mlx->bpp,
+		&mlx->sl, &mlx->x)))
 	{
-		if (!(get_printable(e, av[i], fct_ptr)))
-		{
-			av++;
-			ac--;
-		}
+		mlx_destroy_image(mlx->mlx, mlx->img);
+		return (0);
 	}
-	get_event(lst);
+	mlx->x = 0;
+	mlx->y = 0;
+	mlx->zoom = 1.0;
+	mlx->set = 0;
+	mlx->iter = 1;
+	return (1);
+}
+
+static int		get_fractal(char *name)
+{
+	int		len;
+
+	len = ft_strlen(name);
+	if (len < 3)
+		return (0);
+	if (!ft_strncmp(name, "julia", len))
+		return (2);
+	if (!ft_strncmp(name, "mandelbrot", len))
+		return (1);
+	if (!ft_strncmp(name, "burning_ship", len))
+		return (3);
+	return (0);
+}
+
+int				main(int ac, char **av)
+{
+	t_mlx		mlx;
+	int			fractal;
+
+	if (ac == 2)
+	{
+		if (!(fractal = get_fractal(av[1])))
+		{
+			ft_putendl("Error : unknow parameter. Type \"./fractol\" for help");
+			return (1);
+		}
+		else if (!(init_mlx(&mlx)))
+			return (1);
+		else if (fractal == 1)
+			draw_mandel(&mlx);
+		else if (fractal == 2)
+			draw_julia(&mlx);
+		else if (fractal == 3)
+			draw_ship(&mlx);
+		mlx.fractal = fractal;
+		mlx_do_key_autorepeaton(mlx.mlx);
+		get_event(&mlx);
+	}
+	else
+		ft_putendl("Error : should be \"./fractol [mandel|julia|ship]\"");
 	return (0);
 }

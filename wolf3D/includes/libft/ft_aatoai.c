@@ -12,62 +12,80 @@
 
 #include "libft.h"
 
-static void	get_line(int **line, char *file)
+static char			**split_char(char *str, int size)
 {
-	int		i;
-	char	**tab;
+	char			**result;
+	int				size2;
+	int				cnt;
+	int				i;
 
-	i = 0;
-	while (file[i] && file[i] != '\n')
-		i++;
-	if (!(tab = ft_strsplit(ft_strndup(file, i), ' ')))
-		return ;
-	i = 0;
-	while (tab[i])
-	{
-		(*line)[i] = ft_atoi(tab[i]);
-		i++;
-	}
-	free(tab);
-	return ;
+	if (!(result = (char **)ft_memalloc(sizeof(*result) * (size + 1))))
+		return (NULL);
+	ft_bzero(result, size + 1);
+	i = -1;
+	cnt = 0;
+	while (str[++i])
+		if (((str[i] >= '0' && str[i] <= '9') || str[i] == '-') &&
+			(!i || str[i - 1] == ' '))
+		{
+			size2 = 1;
+			while (str[i + size2] && str[i + size2] != ' ')
+				size2++;
+			result[cnt] = ft_strndup(&(str[i]), size2);
+			cnt++;
+			i += size2;
+		}
+	return (result);
 }
 
-static int	*make_line(char *file)
+static int			*get_line(char *str)
 {
-	int		*line;
-	size_t	size;
-	int		i;
+	char			**value;
+	int				*line;
+	int				cnt;
+	int				i;
 
 	i = -1;
-	size = 1;
-	while (file[++i])
-		if (file[i] == ' ' && (file[i - 1] && file[i - 1] != ' '))
-			size++;
-	size++;
-	if (!(line = (int *)ft_memalloc(size)))
+	cnt = 0;
+	while (str[++i])
+		if (((str[i] >= '0' && str[i] <= '9') || str[i] == '-') &&
+			(!i || str[i - 1] == ' '))
+			cnt++;
+	if (!(line = (int *)ft_memalloc(sizeof(*line) * (cnt + 1))))
 		return (NULL);
-	if (!file[0])
-		line[0] = END_LINE;
-	else
-		line[size - 1] = END_LINE;
-	get_line(&line, file);
+	line[cnt] = END_LINE;
+	if (!(value = split_char(str, cnt)))
+		free(line);
+	if (!value)
+		return (NULL);
+	while (cnt--)
+		line[cnt] = ft_atoi(value[cnt]);
 	return (line);
 }
 
-int			**ft_aatoai(char **src, int line_nb)
+int					**ft_aatoai(char **src)
 {
-	int		**result;
-	int		i;
+	int				**result;
+	int				x;
 
-	if (!src || !line_nb ||
-		!(result = (int **)ft_memalloc(sizeof(*result) * line_nb)))
+	x = 0;
+	while (src[x])
+		x++;
+	x++;
+	if (!(result = (int **)ft_memalloc(sizeof(*result) * (x + 1))))
 		return (NULL);
-	i = 0;
-	while (i <= line_nb)
-	{
-		if (!(result[i] = make_line(src[i])))
+	x = -1;
+	while (src[++x])
+		result[x] = NULL;
+	result[x] = NULL;
+	x = -1;
+	while (src[++x])
+		if (!(result[x] = get_line(src[x])))
+		{
+			while (x--)
+				free(result[x]);
+			free(result);
 			return (NULL);
-		i++;
-	}
+		}
 	return (result);
 }

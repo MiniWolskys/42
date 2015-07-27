@@ -5,35 +5,38 @@
 #                                                     +:+ +:+         +:+      #
 #    By: srison <srison@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/01/31 18:14:22 by srison            #+#    #+#              #
-#    Updated: 2015/01/31 18:14:27 by srison           ###   ########.fr        #
+#    Created: 2015/07/02 01:33:00 by srison            #+#    #+#              #
+#    Updated: 2015/07/02 01:33:02 by srison           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Wolf3D
+NAME = wolf3d
 
-SRCS = srcs/main.c srcs/load_map.c \
+SRC = srcs/main.c srcs/event.c srcs/boot.c srcs/calc.c srcs/draw.c srcs/set_pixel.c srcs/clear_mlx.c
 
-OBJ = main.o load_map.o \
+OBJ = $(SRCS:.c=.o)
 
-GCC = gcc -Wall -Werror -Wextra -o $(NAME) -I includes/ \
-	  $(SRCS) -Lincludes/libft/ -lft -L/usr/X11/lib -lX11 -lXext -lmlx
+LIB = -L./includes/minilibx_macos/ -lmlx -framework OpenGL -framework AppKit \
+	-L./includes/libft/ -lft
+
+INC = -I./includes/ -I./includes/minilibx_macos/ -I./includes/libft/
+
+GCC = gcc -Wall -Werror -Wextra -o $(NAME) $(LIB) $(INC) $(SRC) \
 
 all: $(NAME)
 
-$(NAME): 
-	make -C includes/libft/ re
-	make -C includes/libft/ clean
-	$(GCC)
+$(NAME):
+	@make -s -C ./includes/minilibx_macos/
+	@make -s -C ./includes/libft/
+	@$(GCC)
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ) 2>/dev/null || true
 
 fclean: clean
-	rm $(NAME)
+	@rm $(NAME) 2>/dev/null || true
 
 re: fclean all
 
 norme:
 	norminette $(SRCS)
-

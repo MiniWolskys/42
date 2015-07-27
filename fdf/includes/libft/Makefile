@@ -12,68 +12,130 @@
 
 NAME = libft.a
 
-SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_strfill.c ft_split_line.c \
-		ft_isalpha.c ft_isascii.c ft_isdigit.c ft_get_file.c \
-		ft_islower.c ft_isprint.c ft_isupper.c ft_lstnew.c \
-		ft_itoa.c ft_memalloc.c ft_memccpy.c ft_lstiter.c \
-		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_lstmap.c ft_aatoai.c \
-		ft_memdel.c ft_memmove.c ft_memset.c ft_lstdelone.c \
-		ft_putchar.c ft_putendl.c ft_putnbr.c ft_lstdel.c \
-		ft_putstr.c ft_puttab.c ft_strcat.c ft_lstadd.c \
-		ft_strchr.c ft_strclr.c ft_strcmp.c ft_putstartl.c \
-		ft_strcpy.c ft_strdel.c ft_strdup.c ft_putnewl.c \
-		ft_strndup.c ft_strequ.c ft_striter.c ft_striteri.c \
-		ft_strsplit.c ft_strjoin.c ft_strlen.c ft_strmap.c \
-		ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strshr.c \
-		ft_strncpy.c ft_strnequ.c ft_strnew.c ft_put_error.c \
-		ft_strnstr.c ft_strrchr.c ft_strstr.c ft_set_color.c \
-		ft_strsub.c ft_strtrim.c ft_tolower.c ft_realloc.c \
-		ft_toupper.c ft_putchar_fd.c ft_putstr_fd.c ft_swap.c \
-		ft_putendl_fd.c ft_putnbr_fd.c ft_strlcat.c ft_strdelchar.c \
+SRC = ft_atoi.c
+SRC += ft_bzero.c
+SRC += ft_isalnum.c
+SRC += ft_strfill.c
+SRC += ft_split_line.c
+SRC += ft_isalpha.c
+SRC += ft_isascii.c
+SRC += ft_isdigit.c
+SRC += ft_get_file.c
+SRC += ft_islower.c
+SRC += ft_isprint.c
+SRC += ft_isupper.c
+SRC += ft_lstnew.c
+SRC += ft_itoa.c
+SRC += ft_memalloc.c
+SRC += ft_memccpy.c
+SRC += ft_lstiter.c
+SRC += ft_memchr.c
+SRC += ft_memcmp.c
+SRC += ft_memcpy.c
+SRC += ft_lstmap.c
+SRC += ft_aatoai.c
+SRC += ft_memdel.c
+SRC += ft_memmove.c
+SRC += ft_memset.c
+SRC += ft_lstdelone.c
+SRC += ft_putchar.c
+SRC += ft_putendl.c
+SRC += ft_putnbr.c
+SRC += ft_lstdel.c
+SRC += ft_putstr.c
+SRC += ft_puttab.c
+SRC += ft_strcat.c
+SRC += ft_lstadd.c
+SRC += ft_strchr.c
+SRC += ft_strclr.c
+SRC += ft_strcmp.c
+SRC += ft_putstartl.c
+SRC += ft_strcpy.c
+SRC += ft_strdel.c
+SRC += ft_strdup.c
+SRC += ft_putnewl.c
+SRC += ft_strndup.c
+SRC += ft_strequ.c
+SRC += ft_striter.c
+SRC += ft_striteri.c
+SRC += ft_strsplit.c
+SRC += ft_strjoin.c
+SRC += ft_strlen.c
+SRC += ft_strmap.c
+SRC += ft_strmapi.c
+SRC += ft_strncat.c
+SRC += ft_strncmp.c
+SRC += ft_strshr.c
+SRC += ft_strncpy.c
+SRC += ft_strnequ.c
+SRC += ft_strnew.c
+SRC += ft_put_error.c
+SRC += ft_strnstr.c
+SRC += ft_strrchr.c
+SRC += ft_strstr.c
+SRC += ft_set_color.c
+SRC += ft_strsub.c
+SRC += ft_strtrim.c
+SRC += ft_tolower.c
+SRC += ft_realloc.c
+SRC += ft_toupper.c
+SRC += ft_putchar_fd.c
+SRC += ft_putstr_fd.c
+SRC += ft_swap.c
+SRC += ft_putendl_fd.c
+SRC += ft_putnbr_fd.c
+SRC += ft_strlcat.c
+SRC += ft_strdelchar.c
 
-
-POINTO = ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o ft_isascii.o \
-		ft_isdigit.o ft_islower.o ft_isprint.o ft_isupper.o ft_itoa.o \
-		ft_memalloc.o ft_memccpy.o ft_memchr.o ft_memcmp.o ft_memcpy.o \
-		ft_memdel.o ft_memmove.o ft_memset.o ft_putchar.o ft_putendl.o \
-		ft_putnbr.o ft_putstr.o ft_puttab.o ft_strcat.o ft_strchr.o \
-		ft_strclr.o ft_strcmp.o ft_strcpy.o ft_strdel.o ft_strdup.o \
-		ft_strequ.o ft_striter.o ft_striteri.o ft_strjoin.o ft_strlen.o \
-		ft_strmap.o ft_strmapi.o ft_strncat.o ft_strncmp.o ft_strncpy.o \
-		ft_strnequ.o ft_strnew.o ft_strnstr.o ft_strrchr.o ft_strstr.o \
-		ft_strsub.o ft_strtrim.o ft_tolower.o ft_toupper.o ft_putchar_fd.o \
-		ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_strlcat.o \
-		ft_strndup.o ft_strsplit.o ft_strdelchar.o ft_realloc.o ft_putnewl.o \
-		ft_putstartl.o ft_strfill.o ft_set_color.o ft_swap.o ft_put_error.o \
-		ft_strshr.o ft_lstadd.o ft_lstdel.o ft_lstdelone.o ft_lstmap.o \
-		ft_lstnew.o ft_lstiter.o ft_get_file.o ft_split_line.o ft_aatoai.o \
-		 \
+POINTO = $(SRC:.c=.o)
 	
 FLAG = gcc -Wall -Werror -Wextra
 
 all: $(NAME)
 
 $(NAME):
-	$(FLAG) -c $(SRC)
-	@echo "Compilation phase 1 : Done."
-	@echo "Les fichiers .o ont etaient cree avec succes."
-	ar rc $(NAME) $(POINTO)
-	@echo "Compilation phase 2 : Done."
-	@echo "La libft.a a bien etait cree."
-	ranlib libft.a
-	cp ./libft.a ./export
-	cp ./libft.h ./export
+	@$(FLAG) -c $(SRC)
+	@echo "\033[0;31m######################################"
+	@echo "#                                    #"
+	@echo "#          LIBFT .O CREATED          #"
+	@echo "#                                    #"
+	@echo "######################################\033[0m"
+	@ar rc $(NAME) $(POINTO)
+	@echo "\033[0;32m######################################"
+	@echo "#                                    #"
+	@echo "#           LIBFT.A CREATED          #"
+	@echo "#                                    #"
+	@echo "######################################\033[0m"
+	@ranlib libft.a
+	@echo "\033[0;33m######################################"
+	@echo "#                                    #"
+	@echo "#              LIBFT OK              #"
+	@echo "#                                    #"
+	@echo "######################################\033[0m"
 
 compil: re clean
 
 clean:
-	/bin/rm -f $(POINTO)
-	/bin/rm -f libft.h.gch
+	@/bin/rm -f $(POINTO)
+	@/bin/rm -f libft.h.gch
+	@echo "\033[0;31m######################################"
+	@echo "#                                    #"
+	@echo "#          LIBFT .O CLEANED          #"
+	@echo "#                                    #"
+	@echo "######################################\033[0m"
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo "\033[0;31m######################################"
+	@echo "#                                    #"
+	@echo "#           LIBFT.A DELETED          #"
+	@echo "#                                    #"
+	@echo "######################################\033[0m"
 
 re: fclean all
 
 norme: 
 	norminette $(SRC)
+
+list:
+	@echo $(SRC)

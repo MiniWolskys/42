@@ -17,9 +17,9 @@ void	ft_bzero(void *s, size_t n)
 	size_t	index;
 
 	index = 0;
-	if (n == 0 || !s)
+	if (n == 0)
 		return ;
-	while (index < n)
+	while ((index <= n))
 	{
 		((char *)s)[index] = 0;
 		index++;

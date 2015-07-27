@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_set_color(t_rgb *rgb)
+int			ft_set_color(unsigned char red, unsigned char green, unsigned char blue)
 {
-	return (*((int *)rgb));
+	return (red << 8 | green << 16 | blue << 24);
 }

@@ -6,7 +6,7 @@
 /*   By: srison <srison@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 11:23:50 by srison            #+#    #+#             */
-/*   Updated: 2015/01/01 17:18:26 by srison           ###   ########.fr       */
+/*   Updated: 2015/06/12 14:00:18 by srison           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <unistd.h>
 
 # define OPT_USAGE "none"
-# define BUFF_SIZE 32
+# define BUFF_SIZE 1024
 # define END_LINE 483164
+# define ABS(x) (x >= 0 ? x : -x)
 
 typedef struct		s_list
 {
@@ -36,6 +37,12 @@ typedef struct		s_rgb
 	char			red;
 	char			useless;
 }					t_rgb;
+
+typedef	struct		s_vec
+{
+	float			x;
+	float			y;
+}					t_vec;
 
 typedef struct		s_pos
 {
@@ -81,6 +88,9 @@ size_t				ft_strlen(char const *str);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_lstlen(void *lst);
 
+float				ft_atof(char *str);
+float				ft_square_root(float nbr, int prec);
+
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_atoi(char *nbr);
 int					ft_strequ(char const *s1, char const *s2);
@@ -96,7 +106,8 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_isupper(int c);
 int					ft_islower(int c);
-int					ft_setcolor(t_rgb *rgb);
+int					ft_set_color(unsigned char red, unsigned char green,
+						unsigned char blue);
 
 char				*ft_itoa(int n);
 char				*ft_strnew(size_t size);
@@ -119,10 +130,10 @@ char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 char				*ft_strdelchar(char const *str, char c);
 
-int					**ft_aatoai(char **src, int line_nb);
+int					**ft_aatoai(char **src);
 
 char				**ft_split_line(char *src, char c);
-char				**ft_get_file(int fd, t_pos **size);
+char				**ft_get_file(int fd);
 char				**ft_strsplit(char const *s1, char c);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
